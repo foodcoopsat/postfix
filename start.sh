@@ -13,13 +13,13 @@ while read base_url api_username api_key; do
   "DISCOURSE_API_KEY": "$api_key"
 }
 EOF
-  fi
   cat << EOF >> /etc/postfix/master.cf
 discourse_$discourse_id  unix  -       n       n       -       -       pipe user=nobody:nogroup
   argv=/usr/local/bin/discourse-receive-mail /etc/postfix/discourse_instance_$discourse_id.json \${recipient}
 EOF
   echo "$base_url discourse_$discourse_id:" >> /etc/postfix/transport.map
   discourse_id=$((discourse_id+1))
+  fi
 done < $DISCOURSE_INSTANCES_FILE
 
 relay_domains=""
