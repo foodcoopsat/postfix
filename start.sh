@@ -4,6 +4,8 @@ cp /etc/postfix/originals/* /etc/postfix/
 
 discourse_id=0
 while read base_url api_username api_key; do
+  if [ ! -z "$base_url" ]
+  then
   cat << EOF > /etc/postfix/discourse_instance_$discourse_id.json
 {
   "DISCOURSE_BASE_URL": "https://$base_url",
@@ -11,6 +13,7 @@ while read base_url api_username api_key; do
   "DISCOURSE_API_KEY": "$api_key"
 }
 EOF
+  fi
   cat << EOF >> /etc/postfix/master.cf
 discourse_$discourse_id  unix  -       n       n       -       -       pipe user=nobody:nogroup
   argv=/usr/local/bin/discourse-receive-mail /etc/postfix/discourse_instance_$discourse_id.json \${recipient}
