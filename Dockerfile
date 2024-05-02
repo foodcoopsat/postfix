@@ -2,13 +2,13 @@ FROM alpine:3.19
 
 RUN apk add --no-cache bash postfix postfix-pcre postfix-pgsql rsyslog ruby ruby-json
 
-ENV MAIL_RECEIVER_VERSION=v4.0.7
-ENV MAIL_RECEIVER_SHA256=b460235340619973fda34bca4753a23f34d89d08420ebfc0923779b73158d3c7
+ENV MAIL_RECEIVER_VERSION=v4.0.7-1
+ENV MAIL_RECEIVER_SHA256=fa28b1aa84d8ef095edde67358c058e6e6fde1dd1105ba6dcb1b99e0c95aa6ca
 
 RUN apk add --no-cache curl \
   && cd /tmp \
   && rm -rf $INSTALL_PATH \
-  && curl -o mail-receiver.tar.gz -fSL https://github.com/discourse/mail-receiver/archive/${MAIL_RECEIVER_VERSION}.tar.gz \
+  && curl -o mail-receiver.tar.gz -fSL https://github.com/foodcoopsat/mail-receiver/archive/${MAIL_RECEIVER_VERSION}.tar.gz \
   && echo "$MAIL_RECEIVER_SHA256  mail-receiver.tar.gz" | sha256sum -c - \
   && tar -xf mail-receiver.tar.gz \
   && mkdir -p /usr/local/lib/site_ruby \
