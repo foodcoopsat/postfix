@@ -1,6 +1,6 @@
-FROM alpine:3.19
+FROM alpine:3.21
 
-RUN apk add --no-cache bash postfix postfix-pcre postfix-pgsql rsyslog ruby ruby-json
+RUN apk add --no-cache bash postfix postfix-pcre postfix-pgsql ruby ruby-json
 
 ENV MAIL_RECEIVER_VERSION=v4.0.7-1
 ENV MAIL_RECEIVER_SHA256=fa28b1aa84d8ef095edde67358c058e6e6fde1dd1105ba6dcb1b99e0c95aa6ca
@@ -17,7 +17,6 @@ RUN apk add --no-cache curl \
   && sed -i 's/ENV_FILE, ARGV.first/ARGV[0], ARGV[1]/g' /usr/local/bin/discourse-receive-mail \
   && rm -rf mail-receiver*
 
-COPY rsyslog.conf /etc/rsyslog.conf
 COPY start.sh /start.sh
 
 EXPOSE 25

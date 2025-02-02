@@ -35,5 +35,4 @@ chown root:root /etc/postfix/*.db
 chmod 0600 /etc/postfix/*.db
 
 # Actually run Postfix
-/usr/libexec/postfix/master &
-rsyslogd -n
+exec postfix start-fg
